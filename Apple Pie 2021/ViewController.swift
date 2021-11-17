@@ -102,7 +102,8 @@ class ViewController: UIViewController {
     ].shuffled()
     var totalWins = 0 {
         didSet {
-            newRound()
+            correctWordLabel.text = currentGame.word
+            Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(newRound), userInfo: nil, repeats: false)
         }
     }
     var totalLosses = 0 {
