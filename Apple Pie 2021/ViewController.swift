@@ -107,7 +107,9 @@ class ViewController: UIViewController {
     }
     var totalLosses = 0 {
         didSet {
-            newRound()
+            treeImageView.image = UIImage(named: "Tree0")
+            correctWordLabel.text = currentGame.word
+            Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(newRound), userInfo: nil, repeats: false)
         }
     }
     
@@ -119,7 +121,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func newRound() {
+    @objc func newRound() {
         guard !listOfWords.isEmpty else {
             enableButton(false)
             updateUI()
