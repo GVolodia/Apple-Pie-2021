@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     var currentGame: Game!
     let incorrectMovesAllowed = 7
     var listOfWords = [
-"Япония",
 "Дели",
 "Шанхай",
 "Сан-Паулу",
@@ -112,10 +111,16 @@ class ViewController: UIViewController {
         updateUI()
     }
     
+    func updateCorrectWordLabel() {
+        
+    }
+    
     func updateUI() {
         let movesRemaining = currentGame.incorrectMovesRemaining
-        let image = "Tree\(movesRemaining < 8 ? movesRemaining : 7)"
+        let imageNumber = movesRemaining < 0 ? 0 : movesRemaining < 8 ? movesRemaining : 7
+        let image = "Tree\(imageNumber)"
         treeImageView.image = UIImage(named: image)
+        correctWordLabel.text = currentGame.guessedWord
         scoreLabel.text = "Выигрыши: \(totalWins), Проигрыши: \(totalLosses)"
     }
     
@@ -128,6 +133,9 @@ class ViewController: UIViewController {
     // MARK: - IB Actions
     @IBAction func letterButtonPressed(_ sender: UIButton) {
         sender.isEnabled = false
+        let letter = sender.title(for: .normal)!
+        currentGame.playerGuessed(letter: Character(letter))
+        updateUI()
     }
     
 }
